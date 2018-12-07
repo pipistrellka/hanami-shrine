@@ -102,6 +102,8 @@ class Shrine
                 attacher = uploader_class::Attacher.new(OpenStruct.new, name)
 
                 attacher.assign(file)
+                # Repository style: raise Hanami::Model::Error.for(e)
+                raise ArgumentError, attacher.errors.join(', ') unless attacher.errors.empty?
                 attacher.finalize
 
                 original_entity_attributes = original_entity.attributes.dup
